@@ -20,19 +20,31 @@ io.on('connection', (socket) => {
     console.log('a user connected', socket);
 });
 
+function makeid(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+
 
 let accountNumber = 10
 class Account {
-  constructor(username, password) {
-    this.username = username;
-    this.password = password;
+  constructor(i) {
+    const fakeAccount = makeid(10)
+    this.username = i+ fakeAccount + i;
+    this.password = i+ fakeAccount + i;
   }
 }
 
 function genarateAccount(amount) {
   let accounts = []
   for (let i = 0; i < amount; i++) {
-    accounts.push(new Account(i + 'xchangccck2' + i, i + 'changen2ick12'))
+    accounts.push(new Account(i))
   }
   return accounts;
 }
@@ -46,7 +58,7 @@ function execute() {
   Promise.all(prom).then(data => {
     console.log('done: ', runTime)
     console.log('next =>', runTime + 1)
-    io.emit('next', {runTime, next: runTime + 1 })
+    io.emit('next', {runTime, next: runTime + 1, paths: data.map(data => data.request.path) })
     setTimeout(() => {
       execute()
     }, 100)
