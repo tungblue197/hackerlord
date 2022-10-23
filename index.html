@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker lỏd =))</title>
+</head>
+<body>
+    <script src="/socket.io/socket.io.js"></script>
+    <form action="post">
+        <span>example: </span>
+        <input type="text" placeholder="base-account" id="account">
+        <input type="text" placeholder="base-password" id="password">
+        <button type="submit">ok</button>
+    </form>
+    <br>
+    <button id="currentTime">Current time: </button>
+    <script>
+        var socket = io();
+        socket.on('next', function(msg) {
+            console.log('next', { msg })
+            const cr = document.querySelector('#currentTime')
+            cr.textContent = `next ${msg.runTime}: - runTime: ${msg.next}`;
+        })
+
+        function changeAccountPassword({account, password}){
+            if(!account || !password) return;
+            
+        }
+
+        socket.on('retry', (msg) => console.error(msg))
+    </script>
+    <script>
+       
+    </script>
+</body>
+</html>
