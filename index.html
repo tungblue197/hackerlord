@@ -23,8 +23,7 @@
             console.log('next', { msg })
             const cr = document.querySelector('#currentTime')
             const cp = document.querySelector('#currentpath')
-            cr.textContent = `next ${msg.runTime}: - runTime: ${msg.next}`;
-            cp.innerHTML = `${drawPath(msg.paths)}`
+            cr.textContent = `runTime ${msg.runTime}: - next: ${msg.next}`;
         })
 
         function drawPath(paths){
