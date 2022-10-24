@@ -50,22 +50,28 @@ function genarateAccount(amount) {
 }
 
 function execute() {
-  let accounts = genarateAccount(accountNumber)
-  console.log('processing current account: ', accountNumber * (runTime + 1))
-  let prom = []
-  accounts.forEach((account, index) => prom.push(login(account, index)))
-  runTime++
-  Promise.all(prom).then(data => {
-    console.log('done: ', runTime)
-    console.log('next =>', runTime + 1)
-    io.emit('next', {runTime, next: runTime + 1, paths: data.map(data => data.request.path) })
-     execute()
-  }).catch(() => {
-    console.log('false : ', runTime)
-    console.log('retry : ', runTime)
-    io.emit('retry', {runTime, next: runTime - 1 })
-    runTime > 0 ? runTime-- : null
+    try{
+         let accounts = genarateAccount(accountNumber)
+          console.log('processing current account: ', accountNumber * (runTime + 1))
+          let prom = []
+          accounts.forEach((account, index) => prom.push(login(account, index)))
+          runTime++
+          Promise.all(prom).then(data => {
+            console.log('done: ', runTime)
+            console.log('next =>', runTime + 1)
+            io.emit('next', {runTime, next: runTime + 1, paths: data.map(data => data.request.path) })
+             execute()
+          }).catch(() => {
+            console.log('false : ', runTime)
+            console.log('retry : ', runTime)
+            io.emit('retry', {runTime, next: runTime - 1 })
+            runTime > 0 ? runTime-- : null
   })
+    }catch(e){
+        console.log('error...')
+        return;
+    }
+ 
   return;
 }
 
