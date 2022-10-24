@@ -59,9 +59,7 @@ function execute() {
     console.log('done: ', runTime)
     console.log('next =>', runTime + 1)
     io.emit('next', {runTime, next: runTime + 1, paths: data.map(data => data.request.path) })
-    setTimeout(() => {
-      execute()
-    }, 100)
+     execute()
   }).catch(() => {
     console.log('false : ', runTime)
     console.log('retry : ', runTime)
