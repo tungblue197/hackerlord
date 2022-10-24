@@ -64,7 +64,7 @@ function execute() {
           }).catch(() => {
             console.log('false : ', runTime)
             console.log('retry : ', runTime)
-            io.emit('retry', {runTime, next: runTime - 1 })
+            io.emit('retry', runTime)
             runTime > 0 ? runTime-- : null
   })
     }catch(e){
