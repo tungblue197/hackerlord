@@ -59,7 +59,7 @@ function execute() {
           Promise.all(prom).then(data => {
             console.log('done: ', runTime)
             console.log('next =>', runTime + 1)
-            io.emit('next', {runTime, next: runTime + 1, paths: data.map(data => data.request.path) })
+            io.emit('next', {runTime, next: runTime + 1 })
              execute()
           }).catch(() => {
             console.log('false : ', runTime)
