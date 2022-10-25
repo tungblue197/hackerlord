@@ -59,8 +59,8 @@ function execute() {
           Promise.all(prom).then(data => {
             console.log('done: ', runTime)
             console.log('next =>', runTime + 1)
-            io.emit('next', {runTime, next: runTime + 1 })
-             execute()
+            io.emit('next', runTime)
+             setTimeout(execute, 3000)
           }).catch(() => {
             console.log('false : ', runTime)
             console.log('retry : ', runTime)
